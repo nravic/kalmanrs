@@ -4,7 +4,6 @@ extern crate nalgebra as na;
 use na::{DefaultAllocator, Scalar, Dim, VectorN, MatrixMN};
 use na::allocator::Allocator;
 
-
 // Kalman Filters in Rust.
 // NB: Until const generics are a thing in Rust (see: https://github.com/rust-lang/rust/issues/44580), I'm forced to use a pretty ugly way of making the Kalman state structs generic. 
 
