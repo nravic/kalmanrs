@@ -13,14 +13,14 @@ where DefaultAllocator: Allocator<T, D1, D1> // allocator for nxn matrix
     + Allocator<T, D2, D1> // allocator for (mxn) matrix
     + Allocator<T, D1, D2> // allocator for (nxm) matrix 
     + Allocator<T, D1, D3> { // allocator for (nxl) matrix  
-    Q: MatrixMN<T, D1, D1>, // Process noise covariance matrix (nxn)
-    A: MatrixMN<T, D1, D1>, // Prev state -> current state mapping matrix (nxn)
-    B: MatrixMN<T, D1, D3>, // Control input -> state mapping matrix (nxl)
-    P: MatrixMN<T, D1, D1>, // Estimate error covariance matrix
-    K: MatrixMN<T, D1, D2>, // Kalman gain matrix (nxm)
-    R: MatrixMN<T, D1, D1>, // Measurement noise covariance matrix
-    H: MatrixMN<T, D2, D1>, // Matrix relating state x to measurement z (mxn) 
-    I: MatrixMN<T, D1, D1>, // Identity matrix. Stored because of ndarray generic shenanigans
+    pub Q: MatrixMN<T, D1, D1>, // Process noise covariance matrix (nxn)
+    pub A: MatrixMN<T, D1, D1>, // Prev state -> current state mapping matrix (nxn)
+    pub B: MatrixMN<T, D1, D3>, // Control input -> state mapping matrix (nxl)
+    pub P: MatrixMN<T, D1, D1>, // Estimate error covariance matrix
+    pub K: MatrixMN<T, D1, D2>, // Kalman gain matrix (nxm)
+    pub R: MatrixMN<T, D1, D1>, // Measurement noise covariance matrix
+    pub H: MatrixMN<T, D2, D1>, // Matrix relating state x to measurement z (mxn) 
+    pub I: MatrixMN<T, D1, D1>, // Identity matrix. Stored because of ndarray generic shenanigans
 }
 
 // #[derive(Debug)]
@@ -32,9 +32,9 @@ pub struct KalmanState<T: Scalar, D1: Dim, D2: Dim, D3: Dim>
 where DefaultAllocator: Allocator<T, D1>
     + Allocator<T, D2>
     + Allocator<T, D3> {
-    x: VectorN<T, D1>, // state vector (nx1)
-    z: VectorN<T, D2>, // measurement vector (mx1)
-    u: VectorN<T, D3>, // control input vector (lx1) 
+    pub x: VectorN<T, D1>, // state vector (nx1)
+    pub z: VectorN<T, D2>, // measurement vector (mx1)
+    pub u: VectorN<T, D3>, // control input vector (lx1) 
 }
 
 // Macro to build the Linear Kalman Filter
@@ -44,8 +44,8 @@ macro_rules! lkf_builder {
         impl LinearKalman<$scalar, $dim_n, $dim_m, $dim_l> {
                 
             fn predict(&mut self, state: &mut KalmanState<$scalar, $dim_n, $dim_m, $dim_l>) {
-                // projects state ahead
-                state.x = self.A * state.x + self.B*state.u;
+                // projects state ahead 
+               state.x = self.A * state.x + self.B*state.u;
                 // project error covariance ahead
                 self.P = self.A * self.P * self.A.transpose() + self.Q;
             }
