@@ -1,11 +1,11 @@
  // examples/lkf.rs
 // Simple example for instantiating and using a Linear Kalman Filter
 extern crate kalmanrs as krs;
-extern crate nalgebra as na;  
-use krs::{KalmanState, LinearKalman};
+extern crate nalgebra as na;   
+use krs::{KalmanState, LinearKalman, lkf_tuple};
 use na::{U3, Matrix3, Vector3};
 
-krs::lkf_builder! {f64, U3, U3, U3}
+lkf_tuple! {KalmanState, LinearKalman, f64, U3, U3, U3};
 
 fn main() {
     let mut example_kalman = LinearKalman {
@@ -22,8 +22,9 @@ fn main() {
     let mut kalman_state = KalmanState {
         x: Vector3::new_random(),
         u: Vector3::new_random(),
-        z: Vector3::new_random()
-    }; 
+        z: Vector3::new_random()                            
+    };
+    let mut filter = Filter(example_kalman, kalman_state);
   
     let _dt = 0.1;
     let t_max = 30;

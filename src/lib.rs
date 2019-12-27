@@ -37,20 +37,31 @@ where DefaultAllocator: Allocator<T, D1>
     pub u: VectorN<T, D3>, // control input vector (lx1) 
 }
 
-// Macro to build the Linear Kalman Filter
+// -- Macro to build the Linear Kalman Filter -- 
+// Because the macro implements a generic type, and the impl isn't defined in this file, the user has to define the implementation. An issue then arises because in Rust it is not possible to impl a type outside of where it is defined.
+// $lkf_struct and $lkf_state hence are structs that need to be created by the user that respectively encapsulate the LinearKalman and KalmanState structs.
+
+#[macro_export]
+    macro_rules! lkf_tuple {
+    ($lkf_struct: ty, $lkf_state: ty, $scalar: ty, $dim_n: ty, $dim_m: ty, $dim_l: ty) => {
+        struct Filter($lkf_struct<$scalar, $dim_n, $dim_m, $dim_l>,
+            $lkf_state<$scalar, $dim_n, $dim_m, $dim_l>);
+    }
+}
+
 #[macro_export]
 macro_rules! lkf_builder {
-    ($scalar: ty, $dim_n: ty, $dim_m: ty, $dim_l: ty) => {
-        impl LinearKalman<$scalar, $dim_n, $dim_m, $dim_l> {
+    ($lkf_struct: ty, $lkf_state: ty, $scalar: ty, $dim_n: ty, $dim_m: ty, $dim_l: ty) => {
+        impl $lkf_struct<$scalar, $dim_n, $dim_m, $dim_l> {
                 
-            fn predict(&mut self, state: &mut KalmanState<$scalar, $dim_n, $dim_m, $dim_l>) {
+            fn predict(&mut self, state: &mut $kstate<$scalar, $dim_n, $dim_m, $dim_l>) {
                 // projects state ahead 
                state.x = self.A * state.x + self.B*state.u;
                 // project error covariance ahead
                 self.P = self.A * self.P * self.A.transpose() + self.Q;
             }
             
-            fn update(&mut self, state: &mut KalmanState<$scalar, $dim_n, $dim_m, $dim_l>) {
+            fn update(&mut self, state: &mut $kstate<$scalar, $dim_n, $dim_m, $dim_l>) {
                 // compute Kalman gain
                 let mut inner_val = self.H * self.P * self.H.transpose() + self.R;
                 inner_val.try_inverse_mut();
