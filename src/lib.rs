@@ -19,16 +19,8 @@ where DefaultAllocator: Allocator<T, D1, D1> // allocator for nxn matrix
     pub P: MatrixMN<T, D1, D1>, // Estimate error covariance matrix
     pub K: MatrixMN<T, D1, D2>, // Kalman gain matrix (nxm)
     pub R: MatrixMN<T, D1, D1>, // Measurement noise covariance matrix
-    pub H: MatrixMN<T, D2, D1>, // Matrix relating state x to measurement z (mxn) 
+    pub H: MatrixMN<T, D2, D1>, // Matrix relating state x to measurement z (mxn )asi
     pub I: MatrixMN<T, D1, D1>, // Identity matrix. Stored because of ndarray generic shenanigans
-}
-
-#[derive(Debug)]
-pub struct UnscentedKalman<T: Scalar, D1: Dim, D2: Dim, D3: Dim> // (d1: n, d2: m, d3: l)
-where DefaultAllocator: Allocator<T, D1, D1> // allocator for nxn matrix
-    + Allocator<T, D2, D1> // allocator for (mxn) matrix
-    + Allocator<T, D1, D2> // allocator for (nxm) matrix 
-    + Allocator<T, D1, D3> { // allocator for (nxl) matrix  
 }
 
 #[derive(Debug)]
