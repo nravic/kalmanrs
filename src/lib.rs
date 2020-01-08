@@ -34,8 +34,7 @@ where DefaultAllocator: Allocator<T, D1>
 }
 
 // -- Macro to build the Linear Kalman Filter -- 
-// Because the macro implements a generic type, and the impl isn't defined in this file, the user has to define the implementation. An issue then arises because in Rust it is not possible to impl a type outside the crate where it is defined.
-// $lkf_wrapper is hence a struct that need to be created by the user that encapsulates the LinearKalman and KalmanState structs.
+// Because the macro implements a generic type, and the impl isn't defined in this file, the user has to define the implementation using a wrapper struct.
 
 #[macro_export]
 macro_rules! lkf_builder {
