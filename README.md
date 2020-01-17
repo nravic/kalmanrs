@@ -1,4 +1,4 @@
-# kalmanrs - Kalman Filters in Rust
+# Kalmanrs - Kalman Filters in Rust 
 
 This library directly implements the algorithm found [here](http://www.cs.unc.edu/~welch/media/pdf/kalman_intro.pdf). kalmanrs is build using nalgebra, and is designed to be as dimensionally generic as possible to make it easy to implement in whatever control structure or system you're working with. 
 
