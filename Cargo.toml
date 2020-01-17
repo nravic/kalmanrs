@@ -6,7 +6,7 @@ edition = "2018"
 readme = "README.md"
 categories = ["embedded", "mathematics", "science"]
 keywords = ["robotics", "aerospace", "embedded", "math", "nalgebra"]
-homepage = "github.com/nravic/kalmanrs"
+homepage = "http://www.github.com/nravic/kalmanrs"
 license = "MIT"
 description = "A dimensionally generic kalman filter library in Rust"
 
