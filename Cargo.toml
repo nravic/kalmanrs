@@ -1,8 +1,15 @@
 [package]
 name = "kalmanrs"
 version = "0.1.0"
-authors = ["Niranjan Ravichandra <nravic@protonmail.ch>"]
+authors = ["Niranjan Ravichandra <nravic2@gmail.com>"]
 edition = "2018"
+keywords = []
+readme = "README.md"
+categories = ["embedded", "mathematics", "science"]
+keywords = ["robotics", "aerospace", "embedded", "math", "nalgebra"]
+homepage = "github.com/nravic/kalmanrs"
+license = "MIT"
+description = "A dimensionally generic kalman filter library in Rust"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
