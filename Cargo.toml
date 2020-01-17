@@ -3,7 +3,6 @@ name = "kalmanrs"
 version = "0.1.0"
 authors = ["Niranjan Ravichandra <nravic2@gmail.com>"]
 edition = "2018"
-keywords = []
 readme = "README.md"
 categories = ["embedded", "mathematics", "science"]
 keywords = ["robotics", "aerospace", "embedded", "math", "nalgebra"]
